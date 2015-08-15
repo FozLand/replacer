@@ -188,7 +188,7 @@ replacer.add_circular_saw_receipe = function( node_name, receipes )
 	if( not( help ) or #help ~= 2 or help[1]=='stairs') then
 		return;
 	end
-	help2 = help[2]:split('_');
+	local help2 = help[2]:split('_');
 	if( not( help2 ) or #help2 < 2 or (help2[1]~='micro' and help2[1]~='panel' and help2[1]~='stair' and help2[1]~='slab')) then
 		return;
 	end
