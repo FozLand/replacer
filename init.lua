@@ -74,10 +74,10 @@ minetest.register_tool( "replacer:replacer",
 
        local keys=placer:get_player_control();
     
-       -- just place the stored node if now new one is to be selected
+       -- just place the stored node if no new one is to be selected
        if( not( keys["sneak"] )) then
 
-          return replacer.replace( itemstack, placer, pointed_thing, 0  ); end
+          return replacer.replace( itemstack, placer, pointed_thing, true ); end
 
  
        if( pointed_thing.type ~= "node" ) then
@@ -85,7 +85,7 @@ minetest.register_tool( "replacer:replacer",
           return nil;
        end
 
-       local pos  = minetest.get_pointed_thing_position( pointed_thing, under );
+       local pos  = minetest.get_pointed_thing_position( pointed_thing, false );
        local node = minetest.env:get_node_or_nil( pos );
        
        --minetest.chat_send_player( name, "  Target node: "..minetest.serialize( node ).." at pos "..minetest.serialize( pos ).."."); 
@@ -109,7 +109,7 @@ minetest.register_tool( "replacer:replacer",
 
     on_use = function(itemstack, user, pointed_thing)
 
-       return replacer.replace( itemstack, user, pointed_thing, above );
+       return replacer.replace( itemstack, user, pointed_thing, false );
     end,
 })
 
