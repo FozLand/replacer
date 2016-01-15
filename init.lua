@@ -220,8 +220,8 @@ replacer.replace = function( itemstack, user, pointed_thing, mode )
 
        --minetest.chat_send_player( name, "Replacing node '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."'.");
 
-       --minetest.env:place_node( pos, { name =  item[ "metadata" ] } );
-       minetest.env:add_node( pos, { name =  daten[1], param1 = daten[2], param2 = daten[3] } );
+       local placeitemstack = ItemStack({ name = daten[1], param1 = daten[2], param2 = daten[3] })
+       minetest.item_place_node( placeitemstack, user, pointed_thing, daten[3] );
        return nil; -- no item shall be removed from inventory
     end
 
