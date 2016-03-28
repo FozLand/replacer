@@ -173,7 +173,8 @@ replacer.replace = function( itemstack, user, pointed_thing, mode )
 
 
        -- in survival mode, the player has to provide the node he wants to be placed
-       if( not(minetest.setting_getbool("creative_mode") )) then
+       if( not(minetest.setting_getbool("creative_mode")) and
+           not(minetest.check_player_privs(name, {creative=true})) ) then
  
           -- players usually don't carry dirt_with_grass around; it's safe to assume normal dirt here
           -- fortionately, dirt and dirt_with_grass does not make use of rotation
@@ -192,30 +193,29 @@ replacer.replace = function( itemstack, user, pointed_thing, mode )
 
 
 
-          -- give the player the item by simulating digging if possible
-          if(   node.name ~= "air" 
-            and node.name ~= "ignore"
-            and node.name ~= "default:lava_source" 
-            and node.name ~= "default:lava_flowing"
-            and node.name ~= "default:water_source"
-            and node.name ~= "default:water_flowing" ) then
-
-             minetest.node_dig( pos, node, user );
-
-             local digged_node = minetest.env:get_node_or_nil( pos );
-             if( not( digged_node ) 
-                or digged_node.name == node.name ) then
-
-                minetest.chat_send_player( name, "Replacing '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."' failed. Unable to remove old node.");
-                return nil;
-             end
-            
-          end
-
           -- consume the item
           user:get_inventory():remove_item("main", daten[1].." 1");
 
           --user:get_inventory():add_item( "main", node.name.." 1");
+       end
+
+       -- give the player the item by simulating digging if possible
+       if(    node.name ~= "air"
+          and node.name ~= "ignore"
+          and node.name ~= "default:lava_source"
+          and node.name ~= "default:lava_flowing"
+          and node.name ~= "default:water_source"
+          and node.name ~= "default:water_flowing" ) then
+
+          minetest.node_dig( pos, node, user );
+
+          local digged_node = minetest.env:get_node_or_nil( pos );
+          if( not( digged_node )
+              or digged_node.name == node.name ) then
+
+             minetest.chat_send_player( name, "Replacing '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."' failed. Unable to remove old node.");
+             return nil;
+          end
        end
 
        --minetest.chat_send_player( name, "Replacing node '"..( node.name or "air" ).."' with '"..( item[ "metadata"] or "?" ).."'.");
