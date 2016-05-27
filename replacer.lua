@@ -86,7 +86,8 @@ replacer.replace = function(itemstack, user, pointed_thing, mode)
 	end
 
 	-- if someone else owns that node then we can not change it
-	if replacer_homedecor_node_is_owned(pos, placer) then
+	if minetest.is_protected(pos, name) then
+		minetest.record_protection_violation(pos, name)
 		return nil
 	end
 
