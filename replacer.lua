@@ -195,9 +195,9 @@ local record = function(itemstack, placer, pointed_thing)
 		-- xpanes need special handling to copy only the base pane and not one of
 		-- its permutations.
 		if string.match(node.name, '^xpanes:.+_[0-9]+') then
-			print('Found an xpane: '..node.name)
+			--print('Found an xpane: '..node.name)
 			node.name = string.match(node.name, '^(xpanes:.+)_[0-9]+')
-			print('Setting node to: '..node.name)
+			--print('Setting node to: '..node.name)
 		end
 		item = {
 			name = node.name,
@@ -213,12 +213,12 @@ local record = function(itemstack, placer, pointed_thing)
 		'Node replacement tool set to: "'..item.name..
 		' '..item.param1..' '..item.param2..'".')
 
-	print('item = '..item.name, item.param1, item.param2, item.meta_fields)
-	if type(item.meta_fields) == 'table' then
-		for k,v in pairs(item.meta_fields) do
-			print(k,v)
-		end
-	end
+	--print('item = '..item.name, item.param1, item.param2, item.meta_fields)
+	--if type(item.meta_fields) == 'table' then
+		--for k,v in pairs(item.meta_fields) do
+			--print(k,v)
+		--end
+	--end
 
 	return itemstack -- nothing consumed but data changed
 end
@@ -294,7 +294,7 @@ replacer.replace = function(itemstack, user, pointed_thing, mode)
 	-- Check if the new node will fit.
 	for string_p,p in pairs(occupied_nodes) do
 		-- If any occupied node is protected abort.
-		print(string_p)
+		--print(string_p)
 		if minetest.is_protected(p, name) then
 			if string_p == '0,0,0' then
 				minetest.record_protection_violation(p, name)
