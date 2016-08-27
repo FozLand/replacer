@@ -64,7 +64,7 @@ end
 local round = function(number)
 	-- Squishy rounding:
 	-- Slightly favor rounding toward zero.
-	local squish = 0.05
+	local squish = 0.1
 	if number >= 0.5 + squish then
 		return math.ceil(number - 0.5 - squish)
 	elseif number <= -0.5 - squish then
