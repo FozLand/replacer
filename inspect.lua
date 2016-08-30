@@ -45,6 +45,8 @@ replacer.inspect = function(itemstack, user, pointed_thing, mode, show_recipe)
 		show_recipe = true
 	end
 
+	local pos  = minetest.get_pointed_thing_position(pointed_thing, mode)
+
 	if pointed_thing.type == 'object' then
 		local text = 'This is '
 		local ref = pointed_thing.ref
@@ -85,7 +87,6 @@ replacer.inspect = function(itemstack, user, pointed_thing, mode, show_recipe)
 		return nil
 	end
 
-	local pos  = minetest.get_pointed_thing_position(pointed_thing, mode)
 	local node = minetest.env:get_node_or_nil(pos)
 
 	if node == nil then
