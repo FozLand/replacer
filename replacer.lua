@@ -437,6 +437,12 @@ replacer.replace = function(itemstack, user, pointed_thing, mode)
 		minetest.get_meta(pos):set_string('closed', item.meta_fields.closed)
 	end
 
+	-- SIGNS --
+	-- Locked signs set owner meta during on_place
+	if string.match(item.name, '^locked_sign:') then
+		minetest.get_meta(pos):set_string('owner', name)
+	end
+
 
 	-- OTHERS --
 	-- Usually the after_place_node callback is used to set meta data like
