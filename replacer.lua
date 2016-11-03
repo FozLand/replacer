@@ -160,6 +160,7 @@ local dig = function(pos, user)
 	local node = minetest.get_node_or_nil(pos)
 
 	if not node then
+		local name = user:get_player_name()
 		minetest.chat_send_player(name, 'Error: Target node not yet loaded.'..
 			' Please wait a moment for the server to catch up.')
 		return false
